@@ -10,15 +10,78 @@
 <body>
     <div id="app">
         <div>
-            <p>aaa</p>
+            <p id="text"></p>
+            <p id="text1"></p>
+            <p>可以在控制台，修改data.name和data.number看看效果</p>
+            <pre>
+                var data = {
+                    name: 'lucy',
+                    number: 2
+                }
+                reactive(data)
+                const plusOne = computed(() => {
+                    return data.number + 1
+                })
+                function render() {
+                    document.getElementById('text').innerHTML = `name is ${data.name}`
+                }
+                function render1() {
+                    document.getElementById('text1').innerHTML = `result is ${plusOne.value}`
+                }
+            
+                watch(() => {
+                    return data.name
+                }, (v, old) => {
+                    console.log('监听到data.name值发生改变')
+                    console.log(old, ' ---> ', v)
+                })
+            
+                new Watcher(
+                    render
+                )
+                new Watcher(
+                    render1
+                )
+            </pre>
         </div>
-        <p>bbb</p>
     </div>
 </body>
-<script src="./compile.js"></script>
+<script src="./utils.js"></script>
 <script src="./watcher.js"></script>
-<script src="./observe.js"></script>
+<script src="./dep.js"></script>
+<script src="./reactive.js"></script>
+<script src="./computed.js"></script>
+<script src="./watch.js"></script>
 <script>
+
+    var data = {
+        name: 'lucy',
+        number: 2
+    }
+    reactive(data)
+    const plusOne = computed(() => {
+        return data.number + 1
+    })
+    function render() {
+        document.getElementById('text').innerHTML = `name is ${data.name}`
+    }
+    function render1() {
+        document.getElementById('text1').innerHTML = `result is ${plusOne.value}`
+    }
+
+    watch(() => {
+        return data.name
+    }, (v, old) => {
+        console.log('监听到data.name值发生改变')
+        console.log(old, ' ---> ', v)
+    })
+
+    new Watcher(
+        render
+    )
+    new Watcher(
+        render1
+    )
 
 </script>
 
